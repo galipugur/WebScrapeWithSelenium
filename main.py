@@ -43,25 +43,25 @@ class TestAkakce(unittest.TestCase):
             #print(item_name)
             #price_list.clear()
 
-            price_list = []
+            #price_list = []
             seller_dict = {}
 
             # fiyat taglerinde döngü yapar.
             for j in range(li_elements_child_count):
 
-                #/html/body/div[3]/ul/li[1]/div/ul/li[1]/a/span[2]/i/img
-                '''
-                WebDriverWait(driver, 4).until(expected_conditions.visibility_of_element_located(
-                    (By.XPATH, f"/html/body/div[3]/ul/li[{i + 1}]/div/ul/li[{j + 1}]/a/span[2]/i")))
-                item_seller = driver.find_element(
-                    By.XPATH,f"/html/body/div[3]/ul/li[{i + 1}]/div/ul/li[{j + 1}]/a/span[2]/i/img").get_attribute("alt")
-                
-                if item_seller == None:
-                    WebDriverWait(driver, 4).until(expected_conditions.visibility_of_element_located((By.XPATH, f"/html/body/div[3]/ul/li[{i + 1}]/div/ul/li[{j + 1}]/a/span[2]/i/b")))
-                    item_seller = driver.find_element(By.XPATH,f"/html/body/div[3]/ul/li[{i + 1}]/div/ul/li[{j + 1}]/a/span[2]/i/b").text
-
-                print(item_seller)
-                '''
+                # satıcı isimlerini alır.
+                try:
+                    WebDriverWait(driver, 4).until(expected_conditions.visibility_of_element_located(
+                        (By.XPATH, f"/html/body/div[3]/ul/li[{i + 1}]/div/ul/li[{j + 1}]/a/span[2]/i")))
+                    item_seller = driver.find_element(
+                        By.XPATH,f"/html/body/div[3]/ul/li[{i + 1}]/div/ul/li[{j + 1}]/a/span[2]/i/img").get_attribute("alt")
+                    #print(item_seller)
+                except:
+                    WebDriverWait(driver, 4).until(expected_conditions.visibility_of_element_located(
+                        (By.XPATH, f"/html/body/div[3]/ul/li[{i + 1}]/div/ul/li[{j + 1}]/a/span[2]/i")))
+                    item_seller = driver.find_element(
+                        By.XPATH,f"/html/body/div[3]/ul/li[{i + 1}]/div/ul/li[{j + 1}]/a/span[2]/i").text
+                    #print(item_seller)
 
                 # fiyatları tek tek alır.
                 WebDriverWait(driver, 4).until(expected_conditions.visibility_of_element_located(
@@ -70,7 +70,7 @@ class TestAkakce(unittest.TestCase):
                 #print(item_price)
 
                 #price_list.append(item_price)
-                seller_dict[f"firm {j+1}"] = item_price
+                seller_dict[item_seller] = item_price
 
             price_dict[item_name] = seller_dict
 
